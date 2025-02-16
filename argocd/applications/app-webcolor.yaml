@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: webcolor
+  namespace: argocd
+  labels:
+    curso: gitops
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/victormilk/web-page-deploy.git
+    targetRevision: HEAD
+    path: k8s
+    directory:
+      recurse: true
+      include: '{nginx/*,webcolor/*}'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: webcolor
+  info:
+    - name: Projeto
+      value: Curso GitOps
+  
